@@ -3,18 +3,11 @@ HDDspeed v0.002
 HDDspeed is a drive speed testing utility for Windows, 
 Linux and Mac OSX written by Danny Arends. It is written 
 in the D language and estimates the maximum data transfer 
-rates using write(), readln(), and readRaw().
+rates using write(), readln(), and readRaw() functions.
 
 Some results on a Wind100 netbook indicate Linux being 
 almost 2-3 times as fast as MS windows on reading and 
 writing binary files.
-
-Win32 binary: http://www.dannyarends.nl/HDDspeed/HDDspeed.exe
-
-Documentation 
--------------
-
-See http://www.dannyarends.nl/HDDspeed/index.html
 
 Usage
 -----
@@ -23,7 +16,7 @@ compiler available at http://www.d-programming-language.org/
 
 Compile by executing:
 
-    $ dmd HDDspeed.d stats.d generate.d
+    $ dmd src/HDDspeed.d src/stats.d src/generate.d
 
 After compilation just run the created executable 
 HDDspeed, parameters of the executable are:
@@ -50,6 +43,11 @@ Examples
     | USB | fat32 | Win XP |  393 mB/s | 1235 kB/s  |  390 mB/s |
     | USB | ext2  | Debian |  917 mB/s | 1103 kB/s  |  908 mB/s |
     | USB | ext4  | Debian | 1163 mB/s | 1196 kB/s  | 1151 mB/s |
+
+Documentation 
+-------------
+
+See http://www.dannyarends.nl/HDDspeed/index.html
 
 (c) Copyright
 -------------
