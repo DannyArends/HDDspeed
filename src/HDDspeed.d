@@ -126,4 +126,6 @@ void main(string[] args){
   writefln("Write: %s mB/sec",toMb(((1000*total_bytes)+(10*total_bytes))/(doSum(bin_times)+1)*1000));
   writefln("Read (txt): %s kB/sec",toKb((10*total_bytes)/(doSum(text_times)+1)*1000));
   writefln("Read (bin): %s mB/sec",toMb((1000*total_bytes)/(doSum(bin_times)+1)*1000));
+  string buf;
+  while ((buf = readln()) != null){}
 }
