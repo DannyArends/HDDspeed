@@ -1,0 +1,9 @@
+*~
+*.obj
+test.*
+*.exe
+*.map
+*.lib
+*.h
+*.a
+*.bin
