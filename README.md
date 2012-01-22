@@ -31,19 +31,22 @@ HDDspeed, parameters of the executable are:
     
 Examples
 --------
-    WD1 - Western Digital (WD1600JS)
-    WD2 - Western Digital (WD5000AADS)
+    ST1 - Mobile ST980825AS (80GB) on HP compax nc6400
+    ST2 - Mobile ST9160821AS (160GB) on Sony Vaio PCG-5J5M
+    WD1 - Western Digital (WD1600JS) on Custom setup
+    WD2 - Western Digital (WD5000AADS) on Custom setup
     WDM - Western Digital Mobile (WD1600BEVT) on MSI Wind100
-    USB - Standard disk (2GB) on MSI Wind100
+    USB - Standard USB disk (2GB) on MSI Wind100
 
-    
     | ID  | FORM  | OS     | Write     | Read (TXT) | Read (BIN)|
     |-----------------------------------------------------------|
+    | ST1 | NTFS  | WinXP2 |  697 mB/s | 2485 kB/s  |  690 mB/s |
+    | ST2 | NTFS  | Vista  |  821 mB/s | 2790 kB/s  |  813 mB/s |
     | WD1 | NTFS  | 2008   | 1714 mB/s | 4916 kB/s  | 1697 mB/s |
     | WD2 | NTFS  | 2008   | 1798 mB/s | 4993 kB/s  | 1781 mB/s |
-    | WDM | NTFS  | Win XP |  422 mB/s | 1141 kB/s  |  407 mB/s |
+    | WDM | NTFS  | WinXP3 |  422 mB/s | 1141 kB/s  |  407 mB/s |
     | WDM | ext2  | Debian | 1162 mB/s | 1214 kB/s  |  920 mB/s |
-    | USB | fat32 | Win XP |  393 mB/s | 1235 kB/s  |  390 mB/s |
+    | USB | fat32 | WinXP3 |  393 mB/s | 1235 kB/s  |  390 mB/s |
     | USB | ext2  | Debian |  917 mB/s | 1103 kB/s  |  908 mB/s |
     | USB | ext4  | Debian | 1163 mB/s | 1196 kB/s  | 1151 mB/s |
 
