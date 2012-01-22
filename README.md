@@ -37,6 +37,7 @@ Examples
     WD2 - Western Digital (WD5000AADS) on Custom setup
     WDM - Western Digital Mobile (WD1600BEVT) on MSI Wind100
     USB - Standard USB disk (2GB) on MSI Wind100
+    SS1 - Samsung Spinpoint F1 on Custom setup
 
     | ID  | FORM  | OS     | Write     | Read (TXT) | Read (BIN)|
     |-----------------------------------------------------------|
@@ -49,6 +50,7 @@ Examples
     | USB | fat32 | WinXP3 |  393 mB/s | 1235 kB/s  |  390 mB/s |
     | USB | ext2  | Debian |  917 mB/s | 1103 kB/s  |  908 mB/s |
     | USB | ext4  | Debian | 1163 mB/s | 1196 kB/s  | 1151 mB/s |
+    | SS1 | NTFS  | Win7   |  793 mB/s | 2424 kB/s  |  785 mB/s |
 
 Documentation 
 -------------
