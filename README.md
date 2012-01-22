@@ -31,7 +31,7 @@ HDDspeed, parameters of the executable are:
     
 Examples
 --------
-    ST1 - Mobile ST980825AS (80GB) on HP compax nc6400
+    ST1 - Mobile ST980825AS (80GB) on HP Compaq NC6400
     ST2 - Mobile ST9160821AS (160GB) on Sony Vaio PCG-5J5M
     WD1 - Western Digital (WD1600JS) on Custom setup
     WD2 - Western Digital (WD5000AADS) on Custom setup
