@@ -1,12 +1,12 @@
-/** \file fileloader.d
- * Last modified Jan, 2012
- * First written Jan, 2012
+/******************************************************************//**
+ * \file src/HDDspeed.d
+ * \brief main function of the HDDspeed utility
  *
- * Copyright (c) 2012 Danny Arends
- * GNU General Public License, version 3
- * Contains: HDDspeed
- **/
-
+ * <i>Copyright (c) 2012</i> Danny Arends<br>
+ * Last modified Mar, 2012<br>
+ * First written Jan, 2011<br>
+ * Written in the D Programming Language (http://www.digitalmars.com/d)
+ **********************************************************************/
 import std.stdio;
 import std.conv;
 import std.datetime;
