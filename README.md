@@ -57,6 +57,6 @@ Documentation
 
 See http://www.dannyarends.nl/index.cgi?p=HDDspeed
 
-(c) Copyright
--------------
-2012 Danny Arends
+Disclaimer
+----------
+Copyright (c) 2012 [Danny Arends](http://www.dannyarends.nl)
