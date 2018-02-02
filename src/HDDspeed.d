@@ -59,12 +59,12 @@ void print_usage(){
   writeln(" [size]     Size of buffer, experimental");
 }
 
-void main(string[] args){
+int main(string[] args){
   long[] text_times;
   long[] bin_times;
   long[] write_times;
   BUFFERSIZE buffersize = BUFFERSIZE.BUFFER_16KB;
-  int ntests = 47;
+  int ntests = 50;
   bool text_err = false;
   string txt_file = "test.txt";
   string bin_file = "test.bin";
@@ -74,12 +74,12 @@ void main(string[] args){
     }catch(Exception e) {
       print_usage();
       writefln("ERROR: n.tests is not an integer: %s", args[1]);
-      return;
+      return(1);
     }
     if(ntests <= 0){
       print_usage();
       writefln("ERROR: n.tests is negative: %s", args[1]);
-      return;
+      return(1);
     }
     if(args.length > 2){ buffersize = setBufferSize(args[2]); }
   }    
@@ -89,7 +89,8 @@ void main(string[] args){
   long   total_bytes=0;
   long   filesize=0;
   long[] sizes;
-  for(auto x=0;x<ntests;x++){
+  for(auto x=0; x < ntests; x++) {
+    //writefln("Running test %d", x);
     long size = uniform(800,1000);
     //Using readln on a text file
     write_times ~= genFile(txt_file,size*10,FILETYPE.TEXTFILE);
@@ -98,7 +99,12 @@ void main(string[] args){
     string text_buffer;
     SysTime t_t_s = Clock.currTime();
     try{
-      if(!text_err) while(t_f.readln(text_buffer)){ }
+      if(!text_err) {
+        while((text_buffer = t_f.readln()) !is null){
+          //write(".");
+          //stdout.flush();
+        }
+      }
     }catch(Exception e) {
       writefln("Text read error caught: %s", e.msg);
       text_err=true;
@@ -106,12 +112,17 @@ void main(string[] args){
     text_times ~= (Clock.currTime()-t_t_s).total!"msecs"();
     delete text_buffer;
     t_f.close();
-    
+
+    //writeln("Testing binary blocks");
+
     //Using binary blocks
-    File* b_f = new File(bin_file,"rb");
+    File* b_f = new File(bin_file, "rb");
     ubyte[] inputbuffer = new ubyte[cast(size_t)(buffersize/ubyte.sizeof)];
     SysTime t_b_s = Clock.currTime();
-    while(b_f.rawRead(inputbuffer)){ }
+    while(b_f.rawRead(inputbuffer).length != 0){
+      //write(".");
+      //stdout.flush();
+    }
     bin_times ~= (Clock.currTime()-t_b_s).total!"msecs"();
     delete inputbuffer;
     b_f.close();
@@ -126,5 +137,5 @@ void main(string[] args){
   writefln("Write: %s mB/sec",toMb(((1000*total_bytes)+(10*total_bytes))/(doSum(bin_times)+1)*1000));
   writefln("Read (txt): %s kB/sec",toKb((10*total_bytes)/(doSum(text_times)+1)*1000));
   writefln("Read (bin): %s mB/sec",toMb((1000*total_bytes)/(doSum(bin_times)+1)*1000));
-  string buf = readln();
+  return(0);
 }
