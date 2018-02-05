@@ -62,7 +62,7 @@ Examples
 Documentation 
 -------------
 
-See https://www.dannyarends.nl/HDDspeed
+See [https://www.dannyarends.nl/Project: HDDspeed](https://www.dannyarends.nl/Project:%20HDDspeed)
 
 Disclaimer
 ----------
