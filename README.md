@@ -9,8 +9,11 @@ Some results on a Wind100 netbook indicate Linux being
 almost 2-3 times as fast as MS windows on reading and 
 writing binary files.
 
-The windows 32bit version is available for download at 
-http://www.dannyarends.nl/apps/HDDspeed.exe
+The windows 32 and 64 bit version is available for download at:
+
+https://www.dannyarends.nl/HDDspeed/HDDspeed_32.exe
+
+https://www.dannyarends.nl/HDDspeed/HDDspeed_32.exe
 
 Usage
 -----
