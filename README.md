@@ -38,6 +38,8 @@ Examples
     WDM - Western Digital Mobile (WD1600BEVT) on MSI Wind100
     USB - Standard USB disk (2GB) on MSI Wind100
     SS1 - Samsung Spinpoint F1 on Custom setup
+    NVM - Toshiba 256GB NVMe THNSN5256GPUK NV
+    ST3 - Samsung Spinpoint M9T Hard Drive
 
     | ID  | FORM  | OS     | Write     | Read (TXT) | Read (BIN)|
     |-----------------------------------------------------------|
@@ -51,11 +53,13 @@ Examples
     | USB | ext2  | Debian |  917 mB/s | 1103 kB/s  |  908 mB/s |
     | USB | ext4  | Debian | 1163 mB/s | 1196 kB/s  | 1151 mB/s |
     | SS1 | NTFS  | Win7   |  793 mB/s | 2424 kB/s  |  785 mB/s |
+    | NVM | NTFS  | Win10  | 3076 mB/s | 45.7 mB/s  | 3046 mB/s |
+    | ST3 | NTFS  | Win10  | 4826 mB/s | 59.6 mB/s  | 4778 mB/s |
 
 Documentation 
 -------------
 
-See http://www.dannyarends.nl/index.cgi?p=HDDspeed
+See https://www.dannyarends.nl/HDDspeed
 
 Disclaimer
 ----------
