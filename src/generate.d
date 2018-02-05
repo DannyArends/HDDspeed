@@ -9,7 +9,7 @@
  **********************************************************************/
 import std.stdio;
 import std.conv;
-import std.datetime;
+import core.time;
 import std.random;
 
 import stats;
@@ -28,7 +28,7 @@ string[] chars = [
   "u", "U", "v", "V",
   "w", "W", "x", "X",
   "y", "Y", "z", "Z",
-  " ", "\t", ", ",".\n",
+  " ", "\t", ",", "\n",
   "{", "}", "[", "]"
 ];
 
@@ -45,25 +45,26 @@ void clean_file(string filename){
 
 long genFile(string name, long size, FILETYPE type){
   long[] times;
-  File* fp = new File(name,"a");
   long x =0;
-  while(x < size){
-    uint n = uniform(0,12);
+  char[] buffer;
+  while(x < size) {
     if(type == FILETYPE.TEXTFILE){
-      if(n+x > size) n = cast(uint) (size-x);
-      foreach (e; randomSample(chars, n)) {
-        SysTime ts = Clock.currTime();
-        fp.write(e);
-        times ~= (Clock.currTime()-ts).total!"msecs"();
+      foreach (e; randomSample(chars, 1)) {
+        version(Windows){
+          if(e == "\n") x++;
+        }
+        buffer ~= e;
+        x++;
       }
-      x += n;
     }else{
-      SysTime ts = Clock.currTime();
-      fp.write(to!char(n));
-      times ~= (Clock.currTime()-ts).total!"msecs"();
+      int n = uniform(0,9);
+      buffer ~= to!char(n);
       x++;      
     }
   }
+  MonoTime ts = MonoTime.currTime();
+  File* fp = new File(name,"a");
+  fp.write(buffer);
   fp.close();
-  return doSum(times);
+  return((MonoTime.currTime-ts).total!"hnsecs"());
 }
