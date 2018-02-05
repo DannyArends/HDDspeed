@@ -13,7 +13,7 @@ The windows 32 and 64 bit version is available for download at:
 
 https://www.dannyarends.nl/HDDspeed/HDDspeed_32.exe
 
-https://www.dannyarends.nl/HDDspeed/HDDspeed_32.exe
+https://www.dannyarends.nl/HDDspeed/HDDspeed_64.exe
 
 Usage
 -----
