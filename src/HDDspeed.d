@@ -16,6 +16,8 @@ import stats;
 import generate;
 
 enum BUFFERSIZE : long{
+  BUFFER_1B     =               1,
+  BUFFER_4KB   =            4_096,
   BUFFER_16KB   =          16_384,
   BUFFER_2MB    =       2_097_152, 
   BUFFER_4MB    =       4_194_304, 
@@ -30,6 +32,8 @@ enum BUFFERSIZE : long{
 
 BUFFERSIZE setBufferSize(string argument){
   switch(argument){
+    case "1b"   :return BUFFERSIZE.BUFFER_1B;break;
+    case "4kb"  :return BUFFERSIZE.BUFFER_4KB;break;
     case "16kb" :return BUFFERSIZE.BUFFER_16KB;break;
     case "2mb"  :return BUFFERSIZE.BUFFER_2MB;break;
     case "4mb"  :return BUFFERSIZE.BUFFER_4MB;break;
@@ -91,51 +95,61 @@ int main(string[] args){
   long[] sizes;
   for(auto x=0; x < ntests; x++) {
     //writefln("Running test %d", x);
-    long size = uniform(800,1000);
-    //Using readln on a text file
-    write_times ~= genFile(txt_file,size*10,FILETYPE.TEXTFILE);
-    write_times ~= genFile(bin_file,size*1000,FILETYPE.BINARYFILE);
-    File* t_f = new File(txt_file,"r");
+    long size = uniform(8000, 10000);
+
+    // Generate files
+    write_times ~= genFile(txt_file, size, FILETYPE.TEXTFILE);
+    write_times ~= genFile(bin_file, 1000 * size, FILETYPE.BINARYFILE);
+
+    // Using readln on a text file
     string text_buffer;
-    SysTime t_t_s = Clock.currTime();
+    long sum_tf = 0;
+    long n_tf = 0;
+    MonoTime t_t_s = MonoTime.currTime;
+    File* t_f = new File(txt_file,"r");
     try{
       if(!text_err) {
         while((text_buffer = t_f.readln()) !is null){
-          //write(".");
-          //stdout.flush();
+          foreach(i; text_buffer){
+            n_tf++;
+          }
         }
       }
     }catch(Exception e) {
       writefln("Text read error caught: %s", e.msg);
       text_err=true;
     }
-    text_times ~= (Clock.currTime()-t_t_s).total!"msecs"();
-    delete text_buffer;
     t_f.close();
+    text_times ~= (MonoTime.currTime - t_t_s).total!"hnsecs"();
+    delete text_buffer;
 
-    //writeln("Testing binary blocks");
 
-    //Using binary blocks
-    File* b_f = new File(bin_file, "rb");
+    // Using binary blocks
     ubyte[] inputbuffer = new ubyte[cast(size_t)(buffersize/ubyte.sizeof)];
-    SysTime t_b_s = Clock.currTime();
-    while(b_f.rawRead(inputbuffer).length != 0){
-      //write(".");
-      //stdout.flush();
+    long sum_bf = 0;
+    long n_bf = 0;
+    MonoTime t_b_s = MonoTime.currTime;
+    File* b_f = new File(bin_file, "rb");
+    while ((inputbuffer = b_f.rawRead(inputbuffer)).length != 0) {
+      foreach(i; inputbuffer){
+        n_bf++;
+      }
     }
-    bin_times ~= (Clock.currTime()-t_b_s).total!"msecs"();
-    delete inputbuffer;
     b_f.close();
-    write(".");
+    bin_times ~= (MonoTime.currTime - t_b_s).total!"hnsecs"();
+    delete inputbuffer;
+    writeln("Test ",x, ": ", n_tf, " ", n_bf);
     stdout.flush();
     filesize += size;
     sizes ~= filesize;
-    total_bytes += filesize;
+    total_bytes = doSum(sizes);
   }
   write("\n");
-  writefln("Bytes used in testing: %s Kb / %s Mb",toKb(10*total_bytes),toMb(1000*total_bytes));
-  writefln("Write: %s mB/sec",toMb(((1000*total_bytes)+(10*total_bytes))/(doSum(bin_times)+1)*1000));
-  writefln("Read (txt): %s kB/sec",toKb((10*total_bytes)/(doSum(text_times)+1)*1000));
-  writefln("Read (bin): %s mB/sec",toMb((1000*total_bytes)/(doSum(bin_times)+1)*1000));
+
+  
+  writefln("Bytes used in testing txt/bin: %s Kb / %s Mb",toKb(total_bytes),toMb(1000 * total_bytes));
+  writefln("Write: %s mB/sec",1e7 *  toMb(to!double(((1000 * filesize) + filesize)) / to!double(doSum(write_times))));
+  writefln("Read (txt): %s mB/sec",1e7 * toMb(to!double(total_bytes) / to!double(doSum(text_times))));
+  writefln("Read (bin): %s mB/sec",1e7 * toMb((to!double(1000 * total_bytes) / to!double(doSum(bin_times)))));
   return(0);
 }
